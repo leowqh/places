@@ -10,12 +10,37 @@ server.use(bodyParser.urlencoded({extended: true}));
 server.set('view engine', 'hbs');
 hbs.registerPartials(__dirname + '/views/partials');
 
+const PLACES_API_KEY = ' AIzaSyAydUEdzB72BZQ-L2S7FlH1FcVlpRe3cdU ';
+
 server.get('/', (req, res) => {
   res.render('home.hbs');
 });
 
 server.get('/form', (req, res) => {
   res.render('form.hbs');
+});
+
+server.post('/getplaces', (req, res) => {
+  const addr = req.body.address;
+  const locationReq = `https://maps.googleapis.com/maps/api/geocode/json?address=${addr}&key=AIzaSyC1Gchx8a-SEHZV21mDKA3iq3_4m29qp2I`;
+
+  axios.get(locationReq).then((response) => {
+    const locationData = {
+      addr: response.data.results[0].formatted_address,
+      lat: response.data.results[0].geometry.location.lat,
+      lng: response.data.results[0].geometry.location.lng,
+    }
+
+    const placesReq = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${locationData.lat},${locationData.lng}&radius=1500&types=food&name=food&key=${PLACES_API_KEY}`;
+
+
+    console.log(locationData);
+    res.status(200).send(locationData);
+  }).catch((error) => {
+    console.log(error);
+  });
+
+
 });
 
 server.listen(port, () => {
