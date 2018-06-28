@@ -2,7 +2,7 @@ const {MongoClient} = require('mongodb');
 const fs = MongoClient;
 
 //const database = 'mongodb://localhost:27017';
-const database = 'mongodb://qh_leow:Hansolo9@ds121301.mlab.com:21301/placesapp'
+const database = 'mongodb://qh_leow:Hansolo9@ds121301.mlab.com:21301/placesapp';
 //const database = 'mongodb://lab123:lab123@ds241570.mlab.com:41570/weather_app';
 
 const appname = 'qh_leow';
