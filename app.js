@@ -64,7 +64,7 @@ server.post('/getplaces', (req, res) => {
     });
 
     //res.status(200).send(filteredResults);
-  
+
   }).catch((error) => {
     console.log(error);
   });
@@ -79,6 +79,16 @@ server.get('/historical', (req,res) => {
     console.log(errorMessage);
   });
 });
+
+server.post('/delete', (req,res) =>{
+  filemgr.deleteAll().then((result) => {
+    filteredResults = result;
+    res.render('historical.hbs');
+  }).catch((errorMessage) => {
+    console.log(errorMessage);
+  });
+});
+
 
 const extractData = (originalResults) => {
   var placesObj = {
