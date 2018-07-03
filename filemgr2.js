@@ -5,12 +5,12 @@ const fs = MongoClient;
 const database = 'mongodb://qh_leow:Hansolo9@ds121301.mlab.com:21301/placesapp';
 //const database = 'mongodb://lab123:lab123@ds241570.mlab.com:41570/weather_app';
 
-const appname = 'placesapp';
+const appname = 'qh_leow';
 const collectionname = 'placesappcollection';
 
 const saveData = (newdata) => {
   return new Promise((resolve, reject) => {
-    MongoClient.connect(database, {useNewUrlParser: true}, (err, client) => {
+    MongoClient.connect(database,{useNewUrlParser: true}, (err, client) => {
       if (err) {
         reject('Unable to connect to MongoDB');
       }
@@ -19,7 +19,7 @@ const saveData = (newdata) => {
       const db = client.db(appname);
 
       const length = newdata.length;
-      for(var i=0; i<length; i++) {
+      for (var i=0; i<length; i++) {
         db.collection(collectionname).insertOne(newdata[i], (err, result) => {
           if (err) {
             reject('Unable to insert');
@@ -27,8 +27,8 @@ const saveData = (newdata) => {
 
         });
       }
-
       resolve(1);
+
 
       client.close();
     });
@@ -37,7 +37,7 @@ const saveData = (newdata) => {
 
 const getAllData = () => {
   return new Promise((resolve, reject) => {
-    MongoClient.connect(database, {useNewUrlParser: true}, (err, client) => {
+    MongoClient.connect(database,{useNewUrlParser: true}, (err, client) => {
       if (err) {
         reject('Unable to connect to MongoDB');
       }
@@ -58,7 +58,7 @@ const getAllData = () => {
 
 const deleteAll = () => {
   return new Promise((resolve, reject) => {
-    MongoClient.connect(database, {useNewUrlParser: true}, (err, client) => {
+    MongoClient.connect(database,{useNewUrlParser: true}, (err, client) => {
       if (err) {
         reject('Unable to connect to MongoDB');
       }
@@ -77,11 +77,8 @@ const deleteAll = () => {
   });
 };
 
-
-
-
 module.exports = {
   saveData,
   getAllData,
   deleteAll,
-}
+};
